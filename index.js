@@ -54,7 +54,6 @@ async processPayment() {
 
 
 
-
 const order1 = new CustomerOrder("456t", [{name:"tomatoes",quantity:30,price:60},{name:"eggs",quantity:12,price:15},{name:"mangoes",quantity:10,price:30}],"processed")
 
 
@@ -76,22 +75,31 @@ order1.processPayment()
     }
 }
 
-TeamMember.prototype.completeTask = function (){
+TeamMember.prototype.completeTask = function (taskTitle){
 
      for ( let item of this.tasks){
+        if(item.title === taskTitle)
         item.completed= true
+        console.log(`${taskTitle} task: has been completed.`)
      }
   
 }
 
 TeamMember.prototype.checkProgress = function (){
     return new Promise ((resolve,reject)=>{
-             for(let item of this.tasks){
-                if(item.completed = false)
-                    reject("Pending tasks remaining")
-             }
-             resolve("All tasks completed")
+         let incompleteTasks = this.tasks.filter(task =>!task.completed)
+          if(incompleteTasks.length===0){
+            resolve("All tasks completed")
+          }else{
+            reject("Pending tasks remaining")
+          }
+           
     })
+    .then(complete =>console.log(complete))
+    .catch(error =>console.log(error))
+
+
+
     
 }
 
@@ -100,6 +108,14 @@ teammember1.checkProgress()
 
 
 
+
+
+
+
+
+let teamMember1 = new TeamMember("Arsema", "UX designer", [{title: "Design home page", completed: false}, {title: "Do the wireframes", completed: false}])
+teamMember1.completeTask("Design home page")
+teamMember1.checkProgress()
 // Build a Candidate class with properties: name, position, 
 // and interviews (array of objects with date, status). 
 // Add a method scheduleInterview(date) that pushes a new interview with status "pending". Then write an async 
@@ -199,6 +215,21 @@ course1.generateCertificate("Ann")
 // resolving with a list of stocks where currentPrice >= threshold, or rejecting with "No alerts triggered".
 
 
+
+
+
+//   PSEUDOCODE
+
+// 1.Create class called StockTracker with properties of watchlist (array of {symbol, threshold, currentPrice})
+// 3.Initialize  a method of updatePrice(symbol, newPrice) in the class
+// 4.loop through the watchlist and find the symbol that is equla to the one passed in your parameter
+//5. Update its currentPrice to newPrice.
+// 6.Create Async function called checkAlerts()
+// 7.Loop through the watchlist
+//8. Collect stocks where currentPrice >= threshold
+// 9.If found, resolve with their list
+// 10.If none, reject with "No alerts triggered"
+
 class StockTracker {
     constructor(watchlist){
         this.watchlist = watchlist
@@ -214,20 +245,24 @@ class StockTracker {
     }
 
     async checkAlerts (){
-        let newStock = []
-        await new Promise((resolve,reject)=>{
-                  for(let item of this.watchlist){
-            if(!item.currentPrice >= item.threshold){
-                         reject ("No alerts triggered")
-                         return ("No alerts triggered")
-                      }else{
-                        newStock.push(item.symbol)
-                      }
-        } 
-        })
-    }
+        return new Promise((resolve,reject)=>{
+                    let newStock = this.watchlist.filter(item => item.currentPrice>=item.threshold)
+                    if(newStock.length === 0){
+                        reject("No alerts triggered")
+                    }else{
+                       resolve(newStock)
+                    }
+        })}
+
+
+          
 }
 
 const stocks = new StockTracker([{symbol:"ERD",threshold:30000,currentPrice:10000},{symbol:"FRG",threshold:1000,currentPrice:10000}])
 stocks.updatePrice("FRG",40000)
 stocks.checkAlerts()
+  .then(alerts => console.log(alerts))
+    .catch(message => console.log(message));
+
+
+
