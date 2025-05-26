@@ -1,8 +1,4 @@
-// // Create a CustomerOrder class with properties: 
-// // orderId (string), items (array of objects with name, quantity, price), and status (string). 
-// // Add a method calculateTotal() that returns the total order amount. Write an async method processPayment() 
-// // that simulates payment with a Promise that resolves after 2 seconds.
-// //  After calling the method, change the status to "paid" and print a success message.
+
 
 
 // PSEUDOCODE
@@ -60,11 +56,20 @@ const order1 = new CustomerOrder("456t", [{name:"tomatoes",quantity:30,price:60}
 order1.calculateTotal()
 order1.processPayment()
 
-// // Create a TeamMember class that takes name, 
-// // role, and an array of tasks (each task is an object with title and completed boolean).
-// //  Write a prototype method completeTask(taskTitle) that marks a task as completed.
-// //  Write another method checkProgress() that returns a Promise resolving to "All tasks completed!" 
-// // or rejecting with "Pending tasks remaining" based on the state of the tasks array.
+//PSEUDOCODE
+
+
+// 1.Create a class called TeamMember object with properties name,role and list of tasks
+// 2. Create a function prototype called  completeTask that  takes taskTitle
+// 3.loop through tasks and Check if  taskTitle exist in the given array
+// 4. If found assign completed status to true
+// 5. create a function prototype called checkProgress that returns a promise
+// 6.Check if every task in the tasks arrray is complete,if completed,resolve with "All tasks completed",if not reject with"Pending tasks remaining"
+
+
+
+
+
 
 
  class TeamMember {
@@ -102,24 +107,22 @@ TeamMember.prototype.checkProgress = function (){
 
     
 }
-
-const teammember1 = new TeamMember("Ann","QA tester",[{title:"write test cases",completed:true},{title:"review test cases",completed:true}])
-teammember1.checkProgress()
-
-
-
-
-
-
-
-
-let teamMember1 = new TeamMember("Arsema", "UX designer", [{title: "Design home page", completed: false}, {title: "Do the wireframes", completed: false}])
+let teamMember1 = new TeamMember("Arsema", "UX designer", [{title: "Design home page", completed: false}, {title: "Do the wireframes", completed: true}])
 teamMember1.completeTask("Design home page")
 teamMember1.checkProgress()
 // Build a Candidate class with properties: name, position, 
 // and interviews (array of objects with date, status). 
 // Add a method scheduleInterview(date) that pushes a new interview with status "pending". Then write an async 
 // function sendConfirmation() that returns a Promise that resolves after 1 second with a message "Interview confirmed with [name]", and log the message.
+
+
+//PSEUDOCODE
+
+// 1.Create a class called candidate with properties name and position
+// 2.Create a method called scheduleInterview that takes in date
+// 3.Create a variable newInterview that hold an object with status pending and interviewDtae the date passed in the parameter
+// 3.Push newInterview  to interview list 
+// 6.Then resolve Confirmation with 1 second delay
 
 class Candidate {
     constructor(name,position,interviews){
